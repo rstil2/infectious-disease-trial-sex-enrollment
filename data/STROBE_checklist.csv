@@ -1,0 +1,23 @@
+item,item_no,location
+Title and abstract,1,Title; Abstract
+Background,2,Background
+Objectives,3,Background last paragraph
+Study design,4,Methods: Reconstruction of the eligible set
+Setting,5,Methods: reconstructed pivotal-trial sample 1994-2021 publications
+Participants,6,Methods eligibility; Table 1; Supplementary Table S1
+Variables,7,Methods: expected female share; extraction
+Data sources,8,Methods: Data extraction; Additional File 1
+Bias,9,Limitations: single extractor; expected-share assumptions
+Study size,10,Reconstructed n=10 primary trials
+Quantitative variables,11,Wilson CIs; log-odds deviations
+Statistical methods,12,Methods: Statistical analysis
+Participants results,13,Results: Reconstruction; Supplementary Figure S1
+Descriptive data,14,Table 1; Figure 1
+Outcome data,15,Table 1; Figure 2
+Main results,16,Results: Bayesian summary
+Other analyses,17,Sensitivity analyses in Results
+Key results,18,Discussion first paragraphs
+Limitations,19,Discussion: Limitations
+Interpretation,20,Discussion; Conclusions
+Generalisability,21,Limitations: not a registry census
+Funding,22,Declarations
