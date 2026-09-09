@@ -6,7 +6,7 @@ Dear Dr Watson and Reviewer,
 
 Thank you for the review. We treated the comments as a requirement to rebuild trial selection, extraction, the estimand, and the model. The previous 15-study table, the 72% (68–76%) systemic-variance claim, the 2068–2074 parity projections, and the 2,847-record funnel are withdrawn. The revised manuscript uses counts taken from primary publications, a trial-specific expected-share comparator, and a hierarchical model that reports residual variance.
 
-A reproducibility package (extraction table, screening log, code, posterior draws, figures) is Additional File 1.
+A reproducibility package (extraction table, screening log, code, posterior draws, figures) is at https://github.com/rstil2/infectious-disease-trial-sex-enrollment and in Additional File 1.
 
 ---
 
@@ -55,7 +55,7 @@ Response: We agree. The observational unit is the trial. The primary model has n
 
 Major comment 4. The repository is still listed as “[URL to be added],” and the trial-level dataset, extraction forms, model code and sensitivity analyses are unavailable. These materials are necessary during peer review, particularly because several reported values cannot be reconciled with the cited sources.
 
-Response: We agree. Additional File 1 contains:
+Response: We agree. The package is at https://github.com/rstil2/infectious-disease-trial-sex-enrollment and in Additional File 1:
 - data/verified_trials.csv (n, female n, expected share, DOI, extraction note)
 - data/screening_log.csv
 - src/analysis.py (seed 42)

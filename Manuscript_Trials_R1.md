@@ -72,7 +72,7 @@ Time (years or decades) was not included in the primary model. COVID-19 trials a
 
 Sensitivity analyses: (i) replace every mixed-sex expected share with 0.50; (ii) drop the health-care-worker trial; (iii) drop rVSV-ZEBOV. Long-range parity projections to 2068–2074 are not reported.
 
-Analyses used Python 3.9+ (NumPy, SciPy, pandas). Code, extraction tables, and posterior draws are in the reproducibility package submitted as an additional file.
+Analyses used Python 3.9+ (NumPy, SciPy, pandas). Code, extraction tables, and posterior draws are at https://github.com/rstil2/infectious-disease-trial-sex-enrollment and in Additional File 1.
 
 ### Terminology and reporting
 
@@ -124,7 +124,7 @@ In a reconstructed set of 10 mixed-sex phase III/II–III infectious disease tri
 
 **Consent for publication:** Not applicable.
 
-**Availability of data and materials:** Extraction tables, screening log, analysis code, and posterior draws are in Additional File 1 (reproducibility package). All source counts are from cited publications and ClinicalTrials.gov.
+**Availability of data and materials:** Extraction tables, screening log, analysis code, and posterior draws are at https://github.com/rstil2/infectious-disease-trial-sex-enrollment (MIT license) and in Additional File 1. All source counts are from cited publications and ClinicalTrials.gov.
 
 **Competing interests:** The author declares no competing interests.
 

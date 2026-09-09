@@ -16,7 +16,7 @@ Thank you for the opportunity to revise this manuscript. The reviewer showed tha
 
 The title is now: “Female enrollment versus target-population sex composition in pivotal infectious disease trials: a reconstructed Bayesian analysis of phase III/IV randomised trials.” We withdrew the 72% systemic-barrier claim and the 2068–2074 projections.
 
-Enclosed: revised manuscript, point-by-point response, figures, STROBE checklist, and a reproducibility package (Additional File 1) with the extraction table, screening log, code, and posterior draws.
+Enclosed: revised manuscript, point-by-point response, figures, STROBE checklist, and a reproducibility package (https://github.com/rstil2/infectious-disease-trial-sex-enrollment; also Additional File 1) with the extraction table, screening log, code, and posterior draws.
 
 This research received no funding. I declare no competing interests.
 
