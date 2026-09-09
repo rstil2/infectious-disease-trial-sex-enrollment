@@ -1,8 +1,8 @@
-# Female enrollment versus target-population sex composition in pivotal infectious disease trials
+# Scoring sex representativeness against the wrong denominator
 
 Reproducibility package for the *Trials* revision of:
 
-**Stillwell, R.C.** Female enrollment versus target-population sex composition in pivotal infectious disease trials: a reconstructed Bayesian analysis of phase III/IV randomised trials.
+**Stillwell, R.C.** Scoring sex representativeness against the wrong denominator: target-population analysis of pivotal infectious disease trials.
 
 **Repository:** https://github.com/rstil2/infectious-disease-trial-sex-enrollment
 

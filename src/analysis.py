@@ -237,8 +237,8 @@ def make_prisma(path):
         ax.add_patch(rec)
         ax.text(x + w / 2, y + h / 2, text, ha="center", va="center", fontsize=8, wrap=True)
 
-    box(3, 8.4, 4, 1.2, "Original submitted set\n15 named studies")
-    box(3, 6.6, 4, 1.2, "Eligibility re-applied\nphase III/IV human RCT\nsex-stratified counts")
+    box(3, 8.4, 4, 1.2, "Named list of 15 studies\n(COVID-19, Ebola, HIV)")
+    box(3, 6.6, 4, 1.2, "Eligibility re-applied:\nphase III or II/III human RCT,\nsex-stratified counts")
     box(0.4, 4.6, 3.4, 1.6, "Excluded (n=5)\nTapia 2016 phase 1\nMilligan 2016 phase 1\nQiu 2014 NHP\nPARTNER observational\nPeterson 2007 phase 2")
     box(6.2, 4.6, 3.4, 1.6, "Moved to secondary (n=3)\nVOICE women-only\nFEM-PrEP women-only\niPrEx MSM/TGW")
     box(3, 2.8, 4, 1.2, "Retained after count correction (n=7)\n+ added pivotal RCTs (n=3)")

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build Word files for the Trials R1 package."""
 
+import re
 from pathlib import Path
 
 import pandas as pd
@@ -12,6 +13,9 @@ from docx.oxml import OxmlElement
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT
+
+_BOLD_RE = re.compile(r"\*\*(.+?)\*\*")
+_ITALIC_RE = re.compile(r"\*(.+?)\*")
 
 
 def set_run_font(run, size=12, bold=False, italic=False):
@@ -29,14 +33,46 @@ def set_run_font(run, size=12, bold=False, italic=False):
     rFonts.set(qn("w:hAnsi"), "Times New Roman")
 
 
+def _add_italic_spans(p, text, size, bold):
+    """Add runs for `text`, turning single-*-wrapped spans italic."""
+    pos = 0
+    for m in _ITALIC_RE.finditer(text):
+        if m.start() > pos:
+            run = p.add_run(text[pos:m.start()])
+            set_run_font(run, size=size, bold=bold, italic=False)
+        run = p.add_run(m.group(1))
+        set_run_font(run, size=size, bold=bold, italic=True)
+        pos = m.end()
+    if pos < len(text):
+        run = p.add_run(text[pos:])
+        set_run_font(run, size=size, bold=bold, italic=False)
+
+
+def add_rich_runs(p, text, size=12, base_bold=False):
+    """Add runs to an existing paragraph, rendering **bold** and *italic* spans."""
+    pos = 0
+    for m in _BOLD_RE.finditer(text):
+        if m.start() > pos:
+            _add_italic_spans(p, text[pos:m.start()], size, base_bold)
+        _add_italic_spans(p, m.group(1), size, True)
+        pos = m.end()
+    if pos < len(text):
+        _add_italic_spans(p, text[pos:], size, base_bold)
+
+
 def add_p(doc, text, *, bold=False, italic=False, size=12, center=False, space_after=8):
+    """Add a paragraph, rendering inline **bold** and *italic* markdown spans."""
     p = doc.add_paragraph()
     if center:
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p.paragraph_format.space_after = Pt(space_after)
     p.paragraph_format.space_before = Pt(0)
-    run = p.add_run(text)
-    set_run_font(run, size=size, bold=bold, italic=italic)
+    if italic:
+        # Explicit italic override (e.g. table footnotes): no inline parsing needed.
+        run = p.add_run(text)
+        set_run_font(run, size=size, bold=bold, italic=True)
+        return p
+    add_rich_runs(p, text, size=size, base_bold=bold)
     return p
 
 
@@ -77,9 +113,8 @@ def add_md_blocks(doc, path: Path):
             flush()
         elif line.startswith("- "):
             flush()
-            p = doc.add_paragraph(line[2:].strip(), style="List Bullet")
-            for r in p.runs:
-                set_run_font(r)
+            p = doc.add_paragraph(style="List Bullet")
+            add_rich_runs(p, line[2:].strip())
         elif line.strip() == "":
             flush()
         else:
@@ -143,6 +178,13 @@ def build_simple(md_name, docx_name):
 
 def build_screening_table():
     doc = Document()
+    heading(doc, "Supplementary Figure S1. Reconstruction of the analysis set", 1)
+    fig_path = ROOT / "figures" / "figure_s1_reconstruction_flow.png"
+    if fig_path.exists():
+        doc.add_picture(str(fig_path), width=Inches(6.2))
+    else:
+        add_p(doc, "[Figure file missing: run src/analysis.py to regenerate figures/figure_s1_reconstruction_flow.png]", italic=True)
+
     heading(doc, "Supplementary Table S1. Reconstruction decisions for the original 15 named studies", 1)
     log = pd.read_csv(ROOT / "data" / "screening_log.csv")
     headers = list(log.columns)
@@ -154,6 +196,7 @@ def build_screening_table():
         cells = table.add_row().cells
         for i, val in enumerate(r):
             cells[i].text = str(val)
+
     heading(doc, "Supplementary Table S2. Extraction notes", 1)
     ext = pd.read_csv(ROOT / "data" / "verified_trials.csv")
     keep = ["trial_id", "short_name", "n_analysis", "n_female", "expected_female", "nct_or_registry", "doi", "extraction_source"]
@@ -166,12 +209,32 @@ def build_screening_table():
         cells = table.add_row().cells
         for i, val in enumerate(r):
             cells[i].text = str(val)
+
+    heading(doc, "Supplementary File S3. STROBE checklist", 1)
+    add_p(
+        doc,
+        "This observational analysis of published trial reports follows the STROBE statement "
+        "(von Elm et al., Ann Intern Med 2007; doi:10.7326/0003-4819-147-8-200710160-00010).",
+        italic=True,
+    )
+    strobe = pd.read_csv(ROOT / "data" / "STROBE_checklist.csv")
+    headers = list(strobe.columns)
+    table = doc.add_table(rows=1, cols=len(headers))
+    table.style = "Table Grid"
+    for i, h in enumerate(headers):
+        table.rows[0].cells[i].text = str(h)
+    for r in strobe.itertuples(index=False):
+        cells = table.add_row().cells
+        for i, val in enumerate(r):
+            cells[i].text = str(val)
+
     heading(doc, "Model specification", 1)
     add_p(
         doc,
         "Observational unit: trial. Linear predictor: logit(p) − logit(π) = α + δ_disease + residual. "
         "No calendar-time term in the primary model. Priors: α ~ Normal(0,1); τ, σδ ~ HalfNormal(0.5). "
-        "Componentwise Metropolis–Hastings, 20,000 iterations, 5,000 discarded, seed 42. "
+        "Componentwise Metropolis–Hastings, 20,000 iterations, 5,000 discarded as burn-in, seed 42. "
+        "Acceptance rates: α 86%, δ 58%, τ 85%, σδ 93%. "
         "See src/analysis.py and results/summary.json.",
     )
     doc.save(OUT / "Supplementary_Appendix_R1.docx")

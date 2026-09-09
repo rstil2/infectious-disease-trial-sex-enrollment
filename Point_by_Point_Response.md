@@ -1,10 +1,10 @@
 Submission ID: 10975380-4561-4e88-b54d-6692abdfe004
 Journal: Trials
-Manuscript: Female enrollment versus target-population sex composition in pivotal infectious disease trials: a reconstructed Bayesian analysis of phase III/IV randomised trials
+Manuscript: Scoring sex representativeness against the wrong denominator: target-population analysis of pivotal infectious disease trials
 
 Dear Dr Watson and Reviewer,
 
-Thank you for the review. We treated the comments as a requirement to rebuild trial selection, extraction, the estimand, and the model. The previous 15-study table, the 72% (68–76%) systemic-variance claim, the 2068–2074 parity projections, and the 2,847-record funnel are withdrawn. The revised manuscript uses counts taken from primary publications, a trial-specific expected-share comparator, and a hierarchical model that reports residual variance.
+Thank you for the review. We treated the comments as a requirement to rebuild trial selection, extraction, the estimand, and the model. The previous 15-study table, the 72% (68–76%) systemic-variance claim, the 2068–2074 parity projections, and the 2,847-record funnel are withdrawn. The revised manuscript uses counts taken from primary publications, a trial-specific expected-share comparator, and a hierarchical model that reports residual variance. The scientific story that survives those constraints is a methods result: the 50% score manufactures an enrollment crisis, mixed-sex pivotal trials largely match their target populations (median ratio 0.98), and the remaining contrast is pregnancy exclusion (rVSV-ZEBOV) versus inclusion (PALM).
 
 A reproducibility package (extraction table, screening log, code, posterior draws, figures) is at https://github.com/rstil2/infectious-disease-trial-sex-enrollment and in Additional File 1.
 
@@ -25,11 +25,11 @@ Major comment 1. The Methods specify phase III/IV randomized human trials, but t
 Response: We agree. We re-applied the stated criteria to the original 15 named studies.
 
 Excluded as ineligible:
-- Tapia et al., Lancet Infect Dis 2016 — phase 1 ChAd3-EBO-Z [manuscript ref 11]
-- Milligan et al., JAMA 2016 — phase 1 Ad26/MVA [12]
-- Qiu et al., Nature 2014 — nonhuman-primate ZMapp experiment [13]
-- Rodger et al., JAMA 2016 (PARTNER) — observational cohort [14]
-- Peterson et al., PLoS Clin Trials 2007 — phase 2 [15]
+- Tapia et al., Lancet Infect Dis 2016 — phase 1 ChAd3-EBO-Z [manuscript ref 19]
+- Milligan et al., JAMA 2016 — phase 1 Ad26/MVA [20]
+- Qiu et al., Nature 2014 — nonhuman-primate ZMapp experiment [21]
+- Rodger et al., JAMA 2016 (PARTNER) — observational cohort [22]
+- Peterson et al., PLoS Clin Trials 2007 — phase 2 [23]
 
 Human ZMapp/therapeutic data are taken from PALM (Mulangu et al., NEJM 2019; phase II/III; n=673; 55.6% female), not from Qiu et al.
 
@@ -43,7 +43,7 @@ We do not reuse the previous 2,847 / 67-trial funnel. That funnel cannot be repr
 
 Major comment 2. VOICE and FEM-PrEP enrolled women, whereas iPrEx enrolled men and transgender women who have sex with men. Their enrollment composition largely reflects the intended study population rather than a common recruitment bias. Applying an unconditional 50% benchmark across these studies is therefore not appropriate. The comparator should reflect each trial’s target population, disease epidemiology, intervention indication, and eligibility criteria.
 
-Response: We agree. VOICE (5,029 women) and FEM-PrEP (2,120 women) are women-only by design. iPrEx required male sex at birth. They are a secondary, sex-restricted set. The primary estimand is observed female share divided by a trial-specific expected share (general adult COVID-19 vaccines 0.50; ChAdOx1 health-care workers 0.70; rVSV-ZEBOV enumerated contacts 0.43; Partners PrEP HIV-negative partners 0.38; Bangkok PWID 0.20; and so on). Results are enrollment ratios, not distance from 50%.
+Response: We agree. VOICE (5,029 women) and FEM-PrEP (2,120 women) are women-only by design. iPrEx required male sex at birth. They are a secondary, sex-restricted set. The primary estimand is observed female share divided by a trial-specific expected share (general adult COVID-19 vaccines 0.50; ChAdOx1 health-care workers 0.70; rVSV-ZEBOV enumerated contacts 0.43; Partners PrEP HIV-negative partners 0.38; Bangkok PWID 0.20; and so on). Results are enrollment ratios, not distance from 50%. A sensitivity that forces every mixed-sex trial onto 50% produces a more negative mean and recreates the appearance of a shared deficit; that is now the methods result, not a claim about systemic barriers.
 
 ---
 
@@ -58,9 +58,10 @@ Major comment 4. The repository is still listed as “[URL to be added],” and 
 Response: We agree. The package is at https://github.com/rstil2/infectious-disease-trial-sex-enrollment and in Additional File 1:
 - data/verified_trials.csv (n, female n, expected share, DOI, extraction note)
 - data/screening_log.csv
-- src/analysis.py (seed 42)
-- results/trial_level_estimates.csv and posterior_draws.csv
-- figures
+- data/STROBE_checklist.csv
+- src/analysis.py (seed 42) and src/build_docx.py
+- results/trial_level_estimates.csv, posterior_draws.csv, and summary.json
+- figures/figure1_observed_vs_expected.png, figure2_enrollment_ratio.png, figure_s1_reconstruction_flow.png
 
 Every primary-set percentage in the revised paper can be recomputed from those files and the cited tables. Examples of previous irreconcilable values and the corrected sources are in the response to comment 1.
 
